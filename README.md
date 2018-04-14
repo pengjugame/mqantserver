@@ -1,7 +1,7 @@
 mqantserver demo
 ------
 
-项目 Fork from：https://github.com/liangdas/mqantserver   
+Fork From：https://github.com/liangdas/mqantserver   
 
 ------
 # 快速安装使用
@@ -10,12 +10,13 @@ go get -v github.com/skiy/mqantserver/src/server
 ``` 
 
 # 配置与运行
-##配置
-如果一切顺利，你可以进入项目根目录修改配置信息
+## 配置
+如果一切顺利，你可以进入项目根目录修改配置信息  
 ```
 cd $GOPATH/src/github.com/skiy/mqantserver
 ```
-**更改web服务器文件访问本地路径**
+
+**更改web服务器文件访问本地路径**   
 在```bin/conf/server.json```中，修改**StaticPath**为你本机上**mqantserver**项目**bin**的绝对路径。   
 （将 **YOUR_PROJECT_PATH** 修改为你项目的绝对地址）   
 ```
@@ -30,7 +31,7 @@ cd $GOPATH/src/github.com/skiy/mqantserver
         ],
 ```
 
-##运行
+## 运行
 在项目根目录下，执行以下命令：
 ```
 server --conf bin/conf/server.json --log bin/logs
