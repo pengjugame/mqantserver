@@ -17,13 +17,14 @@ import "testing"
 
 func TestUser_mongodb(t *testing.T) {
 	user := new(User)
-	r,err := user.mongodb()
+	r, err := user.mongodb()
 	if err != "" {
 		t.Errorf(err)
-	}else{
+	} else {
 		t.Log(r)
 	}
 }
+
 //性能测试
 func BenchmarkUser_mongodb(b *testing.B) {
 	user := new(User)

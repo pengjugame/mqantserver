@@ -4,13 +4,13 @@
 package hitball
 
 import (
-	"math/rand"
 	"encoding/json"
 	"github.com/liangdas/mqant/conf"
 	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/log"
 	"github.com/liangdas/mqant/module"
 	"github.com/liangdas/mqant/module/base"
+	"math/rand"
 	"time"
 )
 
@@ -21,12 +21,13 @@ var Module = func() module.Module {
 
 type Hitball struct {
 	basemodule.BaseModule
-	room	*Room
+	room    *Room
 	proTime int64
-	table *Table
+	table   *Table
 }
+
 //生成随机字符串
-func GetRandomString(lenght int) string{
+func GetRandomString(lenght int) string {
 	str := "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	bytes := []byte(str)
 	result := []byte{}
@@ -46,8 +47,8 @@ func (self *Hitball) Version() string {
 }
 func (self *Hitball) OnInit(app module.App, settings *conf.ModuleSettings) {
 	self.BaseModule.OnInit(self, app, settings)
-	self.room=NewRoom(self)
-	self.table,_=self.room.GetEmptyTable()
+	self.room = NewRoom(self)
+	self.table, _ = self.room.GetEmptyTable()
 	//self.SetListener(new(chat.Listener))
 	self.GetServer().RegisterGO("HD_Move", self.move)
 	self.GetServer().RegisterGO("HD_Join", self.join)
@@ -64,20 +65,20 @@ func (self *Hitball) OnDestroy() {
 	self.GetServer().OnDestroy()
 }
 
-func (self *Hitball)join(session gate.Session, msg map[string]interface{})(result string, err string){
-	if session.GetUserid()==""{
+func (self *Hitball) join(session gate.Session, msg map[string]interface{}) (result string, err string) {
+	if session.GetUserid() == "" {
 		session.Bind(GetRandomString(8))
 		//return "","no login"
 	}
-	erro:=self.table.PutQueue("Join",session)
-	if erro!=nil{
-		return "",erro.Error()
+	erro := self.table.PutQueue("Join", session)
+	if erro != nil {
+		return "", erro.Error()
 	}
-	return "success",""
+	return "success", ""
 }
 
-func (self *Hitball)fire(session gate.Session, msg map[string]interface{})(result string, err string){
-	if msg["Angle"] == nil ||msg["Power"] == nil||msg["X"] == nil ||msg["Y"] == nil{
+func (self *Hitball) fire(session gate.Session, msg map[string]interface{}) (result string, err string) {
+	if msg["Angle"] == nil || msg["Power"] == nil || msg["X"] == nil || msg["Y"] == nil {
 		err = "Angle , Power X ,Y cannot be nil"
 		return
 	}
@@ -85,24 +86,24 @@ func (self *Hitball)fire(session gate.Session, msg map[string]interface{})(resul
 	Power := msg["Power"].(float64)
 	X := msg["X"].(float64)
 	Y := msg["Y"].(float64)
-	erro:=self.table.PutQueue("Fire",session,float64(X),float64(Y),float64(Angle),float64(Power))
-	if erro!=nil{
-		return "",erro.Error()
+	erro := self.table.PutQueue("Fire", session, float64(X), float64(Y), float64(Angle), float64(Power))
+	if erro != nil {
+		return "", erro.Error()
 	}
-	return "success",""
+	return "success", ""
 }
 
-func (self *Hitball)eatCoin(session gate.Session, msg map[string]interface{})(result string, err string){
+func (self *Hitball) eatCoin(session gate.Session, msg map[string]interface{}) (result string, err string) {
 	if msg["Id"] == nil {
 		err = "Id cannot be nil"
 		return
 	}
 	Id := int(msg["Id"].(float64))
-	erro:=self.table.PutQueue("EatCoins",session,Id)
-	if erro!=nil{
-		return "",erro.Error()
+	erro := self.table.PutQueue("EatCoins", session, Id)
+	if erro != nil {
+		return "", erro.Error()
 	}
-	return "success",""
+	return "success", ""
 }
 
 func (self *Hitball) move(session gate.Session, msg map[string]interface{}) (result string, err string) {

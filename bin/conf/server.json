@@ -4,8 +4,8 @@
         "Enable":false,
         //管理模块的类型,与Module列表中ModuleType对应,开发者可以改为一个随机名称,以防止被非法访问
         "MasterType":"Master",
-        //web静态文件路径
-        "WebRoot":"/work/go/mqantserver/bin/console",
+        //web静态文件路径 - 修改项目前缀绝对路径
+        "WebRoot":"/Users/Skiychan/DevEnv/go/src/github.com/skiy/mqantserver/bin/console",
         //web控制台监听端口
         "WebHost":"0.0.0.0:8686",
         //用于远程服务器SSH的配置,本机IP如(127.0.0.1 localhost)无需配置
@@ -97,7 +97,8 @@
                             "Id":"Webapp001",
                             "ProcessID":"development",
                             "Settings":{
-                                "StaticPath":"/work/go/mqantserver/bin"
+                                //web静态文件路径 - 修改项目前缀绝对路径
+                                "StaticPath":"/Users/Skiychan/DevEnv/go/src/github.com/skiy/mqantserver/bin"
                             }
                         }
                 ],

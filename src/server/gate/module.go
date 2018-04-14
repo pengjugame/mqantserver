@@ -6,10 +6,10 @@ package mgate
 import (
 	"fmt"
 	"github.com/liangdas/mqant/conf"
+	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/gate/base"
 	"github.com/liangdas/mqant/log"
 	"github.com/liangdas/mqant/module"
-	"github.com/liangdas/mqant/gate"
 )
 
 var Module = func() module.Module {
@@ -20,7 +20,6 @@ var Module = func() module.Module {
 type Gate struct {
 	basegate.Gate //继承
 }
-
 
 func (gate *Gate) GetType() string {
 	//很关键,需要与配置文件中的Module配置对应
@@ -43,7 +42,6 @@ func (gate *Gate) OnInit(app module.App, settings *conf.ModuleSettings) {
 	//注意这里一定要用 gate.Gate 而不是 module.BaseModule
 	gate.Gate.OnInit(gate, app, settings)
 
-
 	//与客户端通信的自定义粘包示例，需要mqant v1.6.4版本以上才能运行
 	//该示例只用于简单的演示，并没有实现具体的粘包协议
 	//去掉下面一行的注释就能启用这个自定义的粘包处理了，但也会造成demo都无法正常通行，因为demo都是用的mqtt粘包协议
@@ -53,19 +51,22 @@ func (gate *Gate) OnInit(app module.App, settings *conf.ModuleSettings) {
 	gate.Gate.SetStorageHandler(gate) //设置持久化处理器
 	gate.Gate.SetTracingHandler(gate) //设置分布式跟踪系统处理器
 }
+
 //当连接建立  并且MQTT协议握手成功
-func (this *Gate) Connect(session gate.Session)  {
+func (this *Gate) Connect(session gate.Session) {
 	log.Info("客户端建立了链接")
 }
+
 //当连接关闭	或者客户端主动发送MQTT DisConnect命令 ,这个函数中Session无法再继续后续的设置操作，只能读取部分配置内容了
 func (this *Gate) DisConnect(session gate.Session) {
 	log.Info("客户端断开了链接")
 }
+
 /**
 是否需要对本次客户端请求进行跟踪
 */
-func (gate *Gate)OnRequestTracing(session gate.Session,topic string,msg []byte)bool{
-	if session.GetUserid()==""{
+func (gate *Gate) OnRequestTracing(session gate.Session, topic string, msg []byte) bool {
+	if session.GetUserid() == "" {
 		//没有登陆的用户不跟踪
 		return false
 	}
@@ -97,7 +98,7 @@ func (gate *Gate) Delete(Userid string) (err error) {
 获取用户Session信息
 用户登录以后会调用Query获取最新信息
 */
-func (gate *Gate) Query(Userid string) ([]byte,  error) {
+func (gate *Gate) Query(Userid string) ([]byte, error) {
 	log.Info("查询Session持久化数据")
 	return nil, fmt.Errorf("no redis")
 }

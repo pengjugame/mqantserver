@@ -1,95 +1,104 @@
-# 快速使用
-获取 mqantserver：
+mqantserver demo
+------
 
-	git clone https://github.com/liangdas/mqantserver
+项目 Fork from：https://github.com/liangdas/mqantserver   
 
-# 由社区提供的docker环境
-[mqant-docker](https://github.com/bjfumac/mqant-docker)
+------
+# 快速安装使用
+```
+go get -v github.com/skiy/mqantserver/src/server
+``` 
 
-# GOPATH 用法
+# 配置与运行
+##配置
+如果一切顺利，你可以进入项目根目录修改配置信息
+```
+cd $GOPATH/src/github.com/skiy/mqantserver
+```
+**更改web服务器文件访问本地路径**
+在```bin/conf/server.json```中，修改**StaticPath**为你本机上**mqantserver**项目**bin**的绝对路径。   
+（将 **YOUR_PROJECT_PATH** 修改为你项目的绝对地址）   
+```
+"Webapp":[
+                {
+                    "Id":"Webapp001",
+                    "ProcessID":"development",
+                    "Settings":{
+                        "StaticPath":"YOUR_PROJECT_PATH/mqantserver/bin"
+                    }
+                }
+        ],
+```
 
-GOPATH 用法可以看这边文章[GOPATH 用法](http://www.mqant.com/topic/597714ca8f2e454b2eb1c1ee)
+##运行
+在项目根目录下，执行以下命令：
+```
+server --conf bin/conf/server.json --log bin/logs
+```
+你将得到以下日志：
+```
+Server configuration file path : bin/conf/server.json
+[development] [I] [app.go:143] mqant 1.7.0 starting up
+[development] [I] [app.go:235] RPCClient create success type(Gate) id(Gate001)
+[development] [I] [app.go:235] RPCClient create success type(Login) id(Login001)
+[development] [I] [app.go:235] RPCClient create success type(PyChat) id(PyChat001)
+[development] [I] [app.go:235] RPCClient create success type(Test) id(Test001)
+[development] [I] [app.go:235] RPCClient create success type(XaXb) id(XaXb001)
+[development] [I] [app.go:235] RPCClient create success type(Webapp) id(Webapp001)
+[development] [I] [app.go:235] RPCClient create success type(Master) id(Master001)
+[development] [I] [app.go:235] RPCClient create success type(HelloWorld) id(HelloWorld001)
+[development] [I] [app.go:235] RPCClient create success type(Chat) id(Chat001)
+[development] [I] [app.go:235] RPCClient create success type(Hitball) id(Hitball001)
+[development] [I] [app.go:235] RPCClient create success type(Tracing) id(Tracing001)
+[development] [I] [ModuleManager.go:50] This service ProcessID is [development]
+[development] [I] [rpcserver.go:56] RPCServer init success id(Master001) version(1.0.0)
+[development] [I] [rpcserver.go:56] RPCServer init success id(Hitball001) version(1.0.0)
+[development] [I] [rpcserver.go:56] RPCServer init success id(Gate001) version(1.0.0)
+[development] [I] [rpcserver.go:56] RPCServer init success id(HelloWorld001) version(1.0.0)
+[development] [I] [rpcserver.go:56] RPCServer init success id(Login001) version(1.0.0)
+[development] [I] [rpcserver.go:56] RPCServer init success id(Chat001) version(1.0.0)
+[development] [I] [rpcserver.go:56] RPCServer init success id(Webapp001) version(1.0.0)
+[development] [I] [rpcserver.go:56] RPCServer init success id(XaXb001) version(1.0.0)
+[development] [I] [ws_server.go:117] WS Listen ::3653
+[development] [I] [module.go:60] webapp server Listen : :8080
+[development] [I] [tcp_server.go:39] TCP Listen ::3563
 
-# mqantserver 依赖库
-
-	go get github.com/gorilla/mux
-	go get github.com/gorilla/websocket
-	go get github.com/streadway/amqp
-	go get github.com/golang/protobuf
-	go get github.com/golang/net/context
-	go get github.com/gogo/protobuf
-	go get github.com/opentracing/basictracer-go
-	go get github.com/opentracing/opentracing-go
-	go get github.com/yireyun/go-queue
-	go get github.com/garyburd/redigo
-	go get sourcegraph.com/sourcegraph/appdash
-	go get sourcegraph.com/sourcegraph/appdash-data
-	go get github.com/eclipse/paho.mqtt.golang         用于后端机器人
-	go get github.com/liangdas/mqant
-	go get github.com/liangdas/mqant-modules           牌桌模块,短信发送模块
-	go get github.com/liangdas/armyant                 用于后端机器人
-
-	
-# go get golang.org/x/net 安装失败处理方案
-
-[见GOPATH用法这边文章](http://www.mqant.com/topic/597714ca8f2e454b2eb1c1ee)
-
-## 编译 mqantserver：
-
-> 如果编译过程中提示缺少某个三方库的话通过 go get 命令安装即可
-
-### 将mqantserver根目录设置到GOPATH
-
->具体目录根据您自己的下载目录定
-
-1. 将mqantserver根目录设置到GOPATH
-   > export GOPATH=$GOPATH:/work/go/mqantserver
-2. 打印环境变量
-   >echo $GOPATH
-   >/work/go/gopath:/work/go/loolgame
-
-3. 在mqantserver根目录执行编译
-    >go install server
-
-如果一切顺利，运行 bin/server 你可以获得以下输出：
-
-> ./bin/server --conf bin/conf/server.json --log bin/logs
-
-	[release] mqant 1.0.0 starting up
-	[debug  ] RPCClient create success type(Gate) id(127.0.0.1:Gate)
-	[debug  ] RPCClient create success type(Login) id(127.0.0.1:Login)
-	[debug  ] RPCClient create success type(Chat) id(127.0.0.1:Chat)
-	[release] MySelfHost 172.16.8.4
-	[release] WS Listen :%!(EXTRA string=0.0.0.0:3653)
-	[release] TCP Listen :%!(EXTRA string=0.0.0.0:3563)
-
-敲击 Ctrl + C 关闭游戏服务器，服务器正常关闭输出：
-
-	[debug  ] RPCServer close success id(127.0.0.1:Chat)
-	[debug  ] RPCServer close success id(127.0.0.1:Login)
-	[debug  ] RPCServer close success id(127.0.0.1:Gate)
-	[debug  ] RPCClient close success type(Gate) id(127.0.0.1:Gate)
-	[debug  ] RPCClient close success type(Login) id(127.0.0.1:Login)
-	[debug  ] RPCClient close success type(Chat) id(127.0.0.1:Chat)
-	[release] mqant closing down (signal: interrupt)
-
-# 更改web服务器文件访问本地路径
-
-	bin/conf/server.conf 中
-	
-	"Webapp":[
-                            {
-                                "Id":"Webapp001",
-                                "ProcessID":"development",
-                                "Settings":{
-                                    "StaticPath":"/work/go/mqantserver/bin"
-                                }
-                            }
-                    ],
-    其中StaticPath 更改为你本机上mqantserver bin的绝对路径
+```
+ctrl + C 关闭服务器，此时输出日志如下：
+```
+^C
+[development] [I] [rpcserver.go:60] RPCServer closeing id(XaXb001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(XaXb001)
+[development] [I] [module.go:73] webapp server Shutting down...
+[development] [I] [rpcserver.go:60] RPCServer closeing id(Webapp001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(Webapp001)
+[development] [I] [rpcserver.go:60] RPCServer closeing id(Chat001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(Chat001)
+[development] [I] [rpcserver.go:60] RPCServer closeing id(Login001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(Login001)
+[development] [I] [rpcserver.go:60] RPCServer closeing id(HelloWorld001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(HelloWorld001)
+[development] [I] [mqtt_client_server.go:95] Get a connection error , will break(read tcp 127.0.0.1:3653->127.0.0.1:57312: use of closed network connection)
+[development] [I] [mqtt_client_server.go:116] listen_loop Groutine will esc.
+[development] [I] [module.go:62] 客户端断开了链接
+[development] [I] [rpcserver.go:60] RPCServer closeing id(Gate001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(Gate001)
+[development] [I] [rpcserver.go:60] RPCServer closeing id(Hitball001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(Hitball001)
+[development] [I] [rpcserver.go:60] RPCServer closeing id(Master001)
+[development] [I] [rpcserver.go:65] RPCServer close success id(Master001)
+[development] [I] [app.go:243] RPCClient closeing type(Hitball) id(Hitball001)
+[development] [I] [app.go:248] RPCClient close success type(Hitball) id(Hitball001)
+[development] [I] [app.go:243] RPCClient closeing type(Tracing) id(Tracing001)
+[development] [I] [app.go:248] RPCClient close success type(Tracing) id(Tracing001)
+[development] [I] [app.go:243] RPCClient closeing type(Master) id(Master001)
+[development] [I] [app.go:248] RPCClient close success type(Master) id(Master001)
+[development] [I] [app.go:243] RPCClient closeing type(Login) id(Login001)
+[development] [I] [app.go:248] RPCClient close succes
+```
 
 # 访问网页版本客户端
-mqantserver已内置了一个web模块（源码在server/webapp），因此进程启动成功以后就可以访问了
+mqantserver 已内置了一个web模块（源码在server/webapp），因此进程启动成功以后就可以访问了
 
 访问地址为：http://127.0.0.1:8080/mqant/chat/index.html
 
@@ -118,7 +127,8 @@ mqantserver已内置了一个web模块（源码在server/webapp），因此进�
 
 # 项目目录结构
 
-https://github.com/liangdas/mqantserver 仓库中包含了mqant框架,所用到的第三方库,聊天Demo服务端,聊天代码客户端代码
+https://github.com/liangdas/mqantserver (https://github.com/skiy/mqantserver) 
+仓库中包含了mqant框架,所用到的第三方库,聊天Demo服务端,聊天代码客户端代码
 
 	bin		
 		|-conf/server.json			服务端配置文件

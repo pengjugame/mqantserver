@@ -16,9 +16,9 @@ package xaxb
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant-modules/room"
-	"server/xaxb/objects"
+	"github.com/liangdas/mqant/gate"
+	"github.com/skiy/mqantserver/src/server/xaxb/objects"
 )
 
 func (self *Table) SitDown(session gate.Session) error {

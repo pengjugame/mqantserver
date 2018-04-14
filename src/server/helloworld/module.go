@@ -31,7 +31,7 @@ func (m *HellWorld) Version() string {
 func (m *HellWorld) OnInit(app module.App, settings *conf.ModuleSettings) {
 	m.BaseModule.OnInit(m, app, settings)
 
-	m.GetServer().RegisterGO("HD_Say", m.say)  //我们约定所有对客户端的请求都以HD_开头
+	m.GetServer().RegisterGO("HD_Say", m.say) //我们约定所有对客户端的请求都以HD_开头
 }
 
 func (m *HellWorld) Run(closeSig chan bool) {
@@ -42,7 +42,7 @@ func (m *HellWorld) OnDestroy() {
 	m.GetServer().OnDestroy()
 }
 func (m *HellWorld) say(session gate.Session, msg map[string]interface{}) (result string, err string) {
-	if msg["say"] == nil{
+	if msg["say"] == nil {
 		result = "say cannot be nil"
 		return
 	}

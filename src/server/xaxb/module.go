@@ -30,11 +30,11 @@ package xaxb
 import (
 	"errors"
 	"fmt"
+	"github.com/liangdas/mqant-modules/room"
 	"github.com/liangdas/mqant/conf"
 	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/module"
 	"github.com/liangdas/mqant/module/base"
-	"github.com/liangdas/mqant-modules/room"
 )
 
 var Module = func() module.Module {
@@ -118,12 +118,14 @@ func (self *xaxb) GetTableByBigRoomId(bigRoomId string) (*Table, error) {
 		return nil, errors.New("No table found")
 	}
 }
+
 /**
 创建一个房间
 */
-func (self *xaxb) HDGetUsableTable(session gate.Session,msg map[string]interface{}) (map[string]interface{}, string) {
+func (self *xaxb) HDGetUsableTable(session gate.Session, msg map[string]interface{}) (map[string]interface{}, string) {
 	return self.getUsableTable(session)
 }
+
 /**
 创建一个房间
 */

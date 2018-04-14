@@ -15,12 +15,12 @@ package xaxb
 
 import (
 	"container/list"
+	"github.com/liangdas/mqant-modules/room"
 	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/log"
 	"github.com/liangdas/mqant/module"
+	"github.com/skiy/mqantserver/src/server/xaxb/objects"
 	"math/rand"
-	"github.com/liangdas/mqant-modules/room"
-	"server/xaxb/objects"
 	"time"
 )
 
@@ -96,7 +96,7 @@ func NewTable(module module.RPCModule, tableId int) *Table {
 
 	return this
 }
-func (this *Table) GetModule()module.RPCModule{
+func (this *Table) GetModule() module.RPCModule {
 	return this.module
 }
 func (this *Table) GetSeats() []room.BasePlayer {
@@ -165,17 +165,17 @@ func (this *Table) OnCreate() {
 func (this *Table) OnStart() {
 	log.Debug("Table", "OnStart")
 	for _, player := range this.seats {
-		player.Coin=100000
-		player.Weight=0
-		player.Target=0
-		player.Stake=false
+		player.Coin = 100000
+		player.Weight = 0
+		player.Target = 0
+		player.Stake = false
 	}
 	//将游戏状态设置到空闲期
 	this.fsm.Call(IdlePeriodEvent)
-	this.step1=0
-	this.step2=0
-	this.step3=0
-	this.step4=0
+	this.step1 = 0
+	this.step2 = 0
+	this.step3 = 0
+	this.step4 = 0
 	this.current_frame = 0
 	this.sync_frame = 0
 	this.BaseTableImp.OnStart()
@@ -240,7 +240,7 @@ func (self *Table) Update(arge interface{}) {
 				break
 			}
 		}
-		if ready ==false{
+		if ready == false {
 			//有玩家离开了牌桌,牌桌退出
 			self.Finish()
 		}

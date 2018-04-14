@@ -14,12 +14,12 @@
 package main
 
 import (
-	"github.com/liangdas/armyant/work"
-	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"fmt"
+	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"github.com/liangdas/armyant/work"
 )
 
-func main()  {
+func main() {
 	this := new(work.MqttWork)
 	opts := this.GetDefaultOptions("ws://127.0.0.1:3653")
 	opts.SetConnectionLostHandler(func(client MQTT.Client, err error) {
@@ -38,5 +38,5 @@ func main()  {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	fmt.Println(fmt.Sprintf("topic :%s  body :%s",msg.Topic(),string(msg.Payload())))
+	fmt.Println(fmt.Sprintf("topic :%s  body :%s", msg.Topic(), string(msg.Payload())))
 }

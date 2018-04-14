@@ -38,7 +38,7 @@ func (m *Chat) OnInit(app module.App, settings *conf.ModuleSettings) {
 
 	m.chats = map[string]map[string]gate.Session{}
 	//注册一个rpc事件监听器,可以用来统计rpc调用的异常,执行时长等状态
-	m.listener=new(Listener)
+	m.listener = new(Listener)
 	m.SetListener(m.listener)
 	//注册远程调用的函数
 	m.GetServer().RegisterGO("HD_JoinChat", m.joinChat) //我们约定所有对客户端的请求都以Handler_开头
@@ -66,11 +66,11 @@ func (m *Chat) joinChat(session gate.Session, msg map[string]interface{}) (resul
 		err = "Not Logined"
 		return
 	}
-	time.Sleep(time.Millisecond*10)
+	time.Sleep(time.Millisecond * 10)
 	roomName := msg["roomName"].(string)
 	r, e := m.RpcInvoke("Login", "track", session)
 
-	log.Info("演示模块间RPC调用 :", r,e)
+	log.Info("演示模块间RPC调用 :", r, e)
 
 	userList := m.chats[roomName]
 	if userList == nil {
@@ -92,7 +92,7 @@ func (m *Chat) joinChat(session gate.Session, msg map[string]interface{}) (resul
 	rmsg := map[string]interface{}{}
 	rmsg["roomName"] = roomName
 	rmsg["user"] = session.GetUserid()
-	if session.TracCarrier()!=nil{
+	if session.TracCarrier() != nil {
 		rmsg["tracing"] = session.TracCarrier()
 	}
 	b, _ := json.Marshal(rmsg)
@@ -174,7 +174,7 @@ func (m *Chat) say(session gate.Session, msg map[string]interface{}) (result map
 
 	}
 	result = map[string]string{
-		"say":"say success",
+		"say": "say success",
 	}
 	return
 }

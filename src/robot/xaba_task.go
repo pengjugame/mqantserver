@@ -16,15 +16,15 @@ package main
 import (
 	"fmt"
 	"github.com/liangdas/armyant/task"
+	"github.com/skiy/mqantserver/src/robot/xaba"
 	"os"
 	"os/signal"
-	"robot/xaba"
 )
 
 func main() {
 
 	task := task.LoopTask{
-		C:   10000, //并发数 两人1桌 建立两张桌子
+		C: 10000, //并发数 两人1桌 建立两张桌子
 	}
 	manager := xaba_task.NewManager(task)
 	fmt.Println("开始压测请等待")

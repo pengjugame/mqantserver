@@ -192,8 +192,12 @@ $(document).ready(function() {
 
 	//deal with login button click.
 	$("#login").click(function() {
-		username = $("#loginUser").attr("value");
-		roomName = $('#channelList').val();
+		let username = $("#loginUser").attr("value");
+		let roomName = $('#channelList').val();
+
+		if (roomName == '') {
+            roomName = 'mqant';
+		}
 
 		if(username.length > 20 || username.length == 0 || roomName.length > 20 || roomName.length == 0) {
 			showError(LENGTH_ERROR);

@@ -14,9 +14,9 @@
 package objects
 
 type Coins struct {
-	Id             	int
-	X		float64
-	Y       	float64
-	Wid            	int
-	Type		int
+	Id   int
+	X    float64
+	Y    float64
+	Wid  int
+	Type int
 }

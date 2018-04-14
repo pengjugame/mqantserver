@@ -14,20 +14,21 @@
 package chat
 
 import (
+	"fmt"
+	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/log"
 	"github.com/liangdas/mqant/rpc"
 	"github.com/liangdas/mqant/rpc/pb"
-	"github.com/liangdas/mqant/gate"
-	"fmt"
 )
 
 type Listener struct {
 }
-func (l *Listener) BeforeHandle(fn string,session gate.Session, callInfo *mqrpc.CallInfo)error{
-	if session==nil{
+
+func (l *Listener) BeforeHandle(fn string, session gate.Session, callInfo *mqrpc.CallInfo) error {
+	if session == nil {
 		return fmt.Errorf("session 不能为nil")
 	}
-	if session.GetUserid()==""{
+	if session.GetUserid() == "" {
 		return fmt.Errorf("必须先登录账号")
 	}
 	//放行
