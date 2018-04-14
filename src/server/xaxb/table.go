@@ -20,7 +20,7 @@ import (
 	"github.com/liangdas/mqant/module"
 	"math/rand"
 	"github.com/liangdas/mqant-modules/room"
-	"server/xaxb/objects"
+	"github.com/liangdas/mqantserver/src/server/xaxb/objects"
 	"time"
 )
 

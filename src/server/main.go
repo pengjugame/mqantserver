@@ -2,19 +2,19 @@ package main
 
 import (
 	"github.com/liangdas/mqant"
-	"server/chat"
-	"server/gate"
-	"server/login"
-	"server/hitball"
-	"server/user"
-	"webapp"
+	"github.com/liangdas/mqantserver/src/server/chat"
+	"github.com/liangdas/mqantserver/src/server/gate"
+	"github.com/liangdas/mqantserver/src/server/login"
+	"github.com/liangdas/mqantserver/src/server/hitball"
+	"github.com/liangdas/mqantserver/src/server/user"
+	"github.com/liangdas/mqantserver/src/webapp"
 	"github.com/liangdas/mqant/module/modules"
 	"sourcegraph.com/sourcegraph/appdash"
 	//appdashtracer "sourcegraph.com/sourcegraph/appdash/opentracing"
 	"github.com/opentracing/opentracing-go"
 	//"github.com/liangdas/mqant-modules/tracing"
-	"server/xaxb"
-	"server/helloworld"
+	"github.com/liangdas/mqantserver/src/server/xaxb"
+	"github.com/liangdas/mqantserver/src/server/helloworld"
 )
 var(
 	collector *appdash.RemoteCollector= nil

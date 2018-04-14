@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"github.com/liangdas/mqant/utils"
 	"math"
-	"server/xaxb/objects"
+	"github.com/liangdas/mqantserver/src/server/xaxb/objects"
 )
 
 var (

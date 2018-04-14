@@ -18,7 +18,7 @@ import (
 	"github.com/liangdas/armyant/task"
 	"os"
 	"os/signal"
-	"robot/xaba"
+	"github.com/liangdas/mqantserver/src/robot/xaba"
 )
 
 func main() {
