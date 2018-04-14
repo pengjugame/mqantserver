@@ -70,7 +70,7 @@ func (m *Chat) joinChat(session gate.Session, msg map[string]interface{}) (resul
 	roomName := msg["roomName"].(string)
 	r, e := m.RpcInvoke("Login", "track", session)
 
-	log.Info("演示模块间RPC调用 :", r, e)
+	log.Info("演示模块间RPC调用: %s \r\n%s", r, e)
 
 	userList := m.chats[roomName]
 	if userList == nil {

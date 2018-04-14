@@ -97,6 +97,12 @@ ctrl + C 关闭服务器，此时输出日志如下：
 [development] [I] [app.go:248] RPCClient close succes
 ```
 
+## 修改
+修改逻辑代码后，需要重新编译
+```
+go install github.com/skiy/mqantserver/src/server
+```
+
 # 访问网页版本客户端
 mqantserver 已内置了一个web模块（源码在server/webapp），因此进程启动成功以后就可以访问了
 

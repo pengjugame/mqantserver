@@ -48,5 +48,5 @@ result		执行结果
 exec_time 	方法执行时间 单位为 Nano 纳秒  1000000纳秒等于1毫秒
 */
 func (l *Listener) OnComplete(fn string, callInfo *mqrpc.CallInfo, result *rpcpb.ResultInfo, exec_time int64) {
-	log.Info("请求(%s) 执行时间为:[%d 微妙]!", fn, exec_time/1000)
+	log.Info("请求(%s) 执行时间为:[%d 微秒]!", fn, exec_time/1000)
 }

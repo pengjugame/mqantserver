@@ -74,7 +74,7 @@ func (m *Login) track(session gate.Session) (result string, err string) {
 	}
 	time.Sleep(time.Millisecond * 10)
 	m.RpcInvoke("Login", "track2", session)
-	return fmt.Sprintf("My is Login Module %s"), ""
+	return fmt.Sprintf("I'm Login Module"), ""
 }
 
 func (m *Login) track2(session gate.Session) (result string, err string) {
