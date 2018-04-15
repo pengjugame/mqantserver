@@ -192,8 +192,8 @@ $(document).ready(function() {
 
 	//deal with login button click.
 	$("#login").click(function() {
-		let username = $("#loginUser").attr("value");
-		let roomName = $('#channelList').val();
+		username = $("#loginUser").attr("value");
+		roomName = $('#channelList').val();
 
 		if (roomName == '') {
             roomName = 'mqant';
